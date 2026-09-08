@@ -9,3 +9,6 @@
 ✓ Ready in 2.6s
 ✓ Running next.config.ts took 607ms
 
+○ Compiling /api/users ...
+ GET /api/users 200 in 6.7s (next.js: 3.2s, proxy.ts: 2.1s, application-code: 1373ms)
+ GET /api/profiles 200 in 5.4s (next.js: 3.5s, proxy.ts: 119ms, application-code: 1755ms)
