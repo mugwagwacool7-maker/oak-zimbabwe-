@@ -6,16 +6,6 @@
 - Local:         http://localhost:3000
 - Network:       http://192.168.1.178:3000
 - Environments: .env.local
-✓ Ready in 908ms
-✓ Running next.config.ts took 64ms
-⚠ The "middleware" file convention is deprecated. Please use "proxy" instead.
+✓ Ready in 2.6s
+✓ Running next.config.ts took 607ms
 
-  To migrate automatically, run:
-  npx @next/codemod@canary middleware-to-proxy .
-
-  Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-
- GET / 200 in 1084ms (next.js: 439ms, proxy.ts: 260ms, application-code: 386ms)
-○ Compiling /login ...
- GET /login 200 in 4.1s (next.js: 3.9s, proxy.ts: 6ms, application-code: 175ms)
- GET /login 200 in 5.3s (next.js: 5.1s, proxy.ts: 5ms, application-code: 163ms)
