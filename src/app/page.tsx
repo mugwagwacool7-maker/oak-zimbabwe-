@@ -125,6 +125,16 @@ export default function RegisterFormPage() {
                 Register
               </Link>
             </div>
+
+            <div className="mt-6 rounded-xl border border-neutral-200 bg-white p-4">
+              <div className="flex items-start gap-2">
+                <GlobeIcon className="mt-0.5 h-4 w-4 shrink-0 text-neutral-500" />
+                <div>
+                  <p className="text-sm font-medium text-neutral-900">Harare, Zimbabwe</p>
+                  <p className="mt-0.5 text-xs text-blue-600">9-11 March 2026</p>
+                </div>
+              </div>
+            </div>
           </div>
         </aside>
 
@@ -293,3 +303,23 @@ function LayersIcon() {
     </svg>
   );
 }
+
+function GlobeIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <circle cx="12" cy="12" r="9" />
+      <line x1="3" y1="12" x2="21" y2="12" />
+      <path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18" />
+    </svg>
+  );
+}
+

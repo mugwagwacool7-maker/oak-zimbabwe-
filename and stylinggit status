@@ -1,0 +1,285 @@
+warning: in the working copy of 'src/app/globals.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/app/layout.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'src/app/pass/[token]/page.tsx', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/src/app/globals.css b/src/app/globals.css[m
+[1mindex ba939ea..2f9c3a0 100644[m
+[1m--- a/src/app/globals.css[m
+[1m+++ b/src/app/globals.css[m
+[36m@@ -4,3 +4,17 @@[m
+   --color-navy: #0B1F3A;[m
+   --font-chillax: 'Chillax', sans-serif;[m
+ }[m
+[32m+[m
+[32m+[m[32m* {[m
+[32m+[m[32m  box-sizing: border-box;[m
+[32m+[m[32m  -webkit-font-smoothing: antialiased;[m
+[32m+[m[32m  -moz-osx-font-smoothing: grayscale;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mhtml, body {[m
+[32m+[m[32m  height: 100%;[m
+[32m+[m[32m  margin: 0;[m
+[32m+[m[32m  padding: 0;[m
+[32m+[m[32m  overflow: hidden;[m
+[32m+[m[32m  background-color: #f4f5f7;[m
+[32m+[m[32m}[m
+[1mdiff --git a/src/app/layout.tsx b/src/app/layout.tsx[m
+[1mindex c225c50..171b35a 100644[m
+[1m--- a/src/app/layout.tsx[m
+[1m+++ b/src/app/layout.tsx[m
+[36m@@ -1,16 +1,28 @@[m
+[31m-import './globals.css';[m
+[32m+[m[32mimport type { Metadata } from "next";[m
+[32m+[m[32mimport { Plus_Jakarta_Sans } from "next/font/google";[m
+[32m+[m[32mimport "./globals.css";[m
+ [m
+[31m-export const metadata = {[m
+[31m-  title: 'OAK Foundation — Partner Convening 2026',[m
+[32m+[m[32mconst plusJakarta = Plus_Jakarta_Sans({[m
+[32m+[m[32m  subsets: ["latin"],[m
+[32m+[m[32m  weight: ["400", "500", "600", "700"],[m
+[32m+[m[32m  variable: "--font-plus-jakarta",[m
+[32m+[m[32m});[m
+[32m+[m
+[32m+[m[32mexport const metadata: Metadata = {[m
+[32m+[m[32m  title: "Registration Complete - Oak Foundation Partner Convening 2026",[m
+[32m+[m[32m  description: "Oak Foundation Partner Convening 2026 Registration Confirmation and Entry Pass",[m
+ };[m
+ [m
+[31m-export default function RootLayout({ children }: { children: React.ReactNode }) {[m
+[32m+[m[32mexport default function RootLayout({[m
+[32m+[m[32m  children,[m
+[32m+[m[32m}: {[m
+[32m+[m[32m  children: React.ReactNode;[m
+[32m+[m[32m}) {[m
+   return ([m
+[31m-    <html lang="en">[m
+[31m-      <head>[m
+[31m-        <link href="https://api.fontshare.com/v2/css?f[]=chillax@400,500,600,700&display=swap" rel="stylesheet" />[m
+[31m-      </head>[m
+[31m-      <body className="font-chillax bg-gray-50 text-gray-900">{children}</body>[m
+[32m+[m[32m    <html lang="en" className="h-full">[m
+[32m+[m[32m      <body className={`${plusJakarta.className} h-full antialiased`}>[m
+[32m+[m[32m        {children}[m
+[32m+[m[32m      </body>[m
+     </html>[m
+   );[m
+ }[m
+[1mdiff --git a/src/app/page.tsx b/src/app/page.tsx[m
+[1mindex 33c9354..171a4de 100644[m
+[1m--- a/src/app/page.tsx[m
+[1m+++ b/src/app/page.tsx[m
+[36m@@ -121,6 +121,16 @@[m [mexport default function RegisterFormPage() {[m
+                 Register[m
+               </Link>[m
+             </div>[m
+[32m+[m
+[32m+[m[32m            <div className="mt-6 rounded-xl border border-neutral-200 bg-white p-4">[m
+[32m+[m[32m              <div className="flex items-start gap-2">[m
+[32m+[m[32m                <GlobeIcon className="mt-0.5 h-4 w-4 shrink-0 text-neutral-500" />[m
+[32m+[m[32m                <div>[m
+[32m+[m[32m                  <p className="text-sm font-medium text-neutral-900">Harare, Zimbabwe</p>[m
+[32m+[m[32m                  <p className="mt-0.5 text-xs text-blue-600">9-11 March 2026</p>[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m              </div>[m
+[32m+[m[32m            </div>[m
+           </div>[m
+         </aside>[m
+ [m
+[36m@@ -289,3 +299,23 @@[m [mfunction LayersIcon() {[m
+     </svg>[m
+   );[m
+ }[m
+[32m+[m
+[32m+[m[32mfunction GlobeIcon(props: React.SVGProps<SVGSVGElement>) {[m
+[32m+[m[32m  return ([m
+[32m+[m[32m    <svg[m
+[32m+[m[32m      viewBox="0 0 24 24"[m
+[32m+[m[32m      fill="none"[m
+[32m+[m[32m      stroke="currentColor"[m
+[32m+[m[32m      strokeWidth="2"[m
+[32m+[m[32m      strokeLinecap="round"[m
+[32m+[m[32m      strokeLinejoin="round"[m
+[32m+[m[32m      aria-hidden="true"[m
+[32m+[m[32m      {...props}[m
+[32m+[m[32m    >[m
+[32m+[m[32m      <circle cx="12" cy="12" r="9" />[m
+[32m+[m[32m      <line x1="3" y1="12" x2="21" y2="12" />[m
+[32m+[m[32m      <path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18" />[m
+[32m+[m[32m    </svg>[m
+[32m+[m[32m  );[m
+[32m+[m[32m}[m
+[41m+[m
+[1mdiff --git a/src/app/pass/[token]/page.tsx b/src/app/pass/[token]/page.tsx[m
+[1mindex 5e4e0d4..6824f8a 100644[m
+[1m--- a/src/app/pass/[token]/page.tsx[m
+[1m+++ b/src/app/pass/[token]/page.tsx[m
+[36m@@ -1,26 +1,269 @@[m
+[32m+[m[32m"use client";[m
+[32m+[m[32mimport React, { useEffect, useRef, useState } from "react";[m
+[32m+[m[32mimport { useParams } from "next/navigation";[m
+ import { supabase } from "@/lib/supabase";[m
+[31m-import { notFound } from "next/navigation";[m
+[31m-import PassCard from "@/components/PassCard";[m
+[32m+[m[32mimport { QRCodeSVG } from "qrcode.react";[m
+ [m
+[31m-export default async function PassPage({ params }: PageProps<"/pass/[token]">) {[m
+[31m-  const { token } = await params;[m
+[31m-  const { data: attendee, error } = await supabase[m
+[31m-    .from("attendees")[m
+[31m-    .select("first_name, last_name, organization, role, qr_token")[m
+[31m-    .eq("qr_token", token)[m
+[31m-    .single();[m
+[32m+[m[32mconst OAK_LOGO_BASE64 =[m
+[32m+[m[32m  "data:image/png;base64,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";[m
+ [m
+[31m-  if (error || !attendee) notFound();[m
+[32m+[m[32mexport default function RegistrationCompletePage() {[m
+[32m+[m[32m  const params = useParams<{ token: string }>();[m
+[32m+[m[32m  const token = params.token;[m
+[32m+[m
+[32m+[m[32m  const [activeTab, setActiveTab] = useState<"register" | "programme" | "partners">("register");[m
+[32m+[m[32m  const [attendee, setAttendee] = useState<{[m
+[32m+[m[32m    first_name: string;[m
+[32m+[m[32m    last_name: string;[m
+[32m+[m[32m    organization: string;[m
+[32m+[m[32m    role: string | null;[m
+[32m+[m[32m    email: string | null;[m
+[32m+[m[32m    qr_token: string;[m
+[32m+[m[32m  } | null>(null);[m
+[32m+[m[32m  const [notFound, setNotFound] = useState(false);[m
+[32m+[m
+[32m+[m[32m  useEffect(() => {[m
+[32m+[m[32m    if (!token) return;[m
+[32m+[m[32m    supabase[m
+[32m+[m[32m      .from("attendees")[m
+[32m+[m[32m      .select("first_name, last_name, organization, role, email, qr_token")[m
+[32m+[m[32m      .eq("qr_token", token)[m
+[32m+[m[32m      .single()[m
+[32m+[m[32m      .then(({ data, error }) => {[m
+[32m+[m[32m        if (error || !data) setNotFound(true);[m
+[32m+[m[32m        else setAttendee(data);[m
+[32m+[m[32m      });[m
+[32m+[m[32m  }, [token]);[m
+[32m+[m
+[32m+[m[32m  const svgRef = useRef<HTMLDivElement | null>(null);[m
+[32m+[m
+[32m+[m[32m  const downloadQRCode = () => {[m
+[32m+[m[32m    if (!svgRef.current) return;[m
+[32m+[m[32m    const canvas = document.createElement("canvas");[m
+[32m+[m[32m    const ctx = canvas.getContext("2d");[m
+[32m+[m[32m    if (!ctx) return;[m
+[32m+[m[32m    canvas.width = 1000;[m
+[32m+[m[32m    canvas.height = 1000;[m
+[32m+[m[32m    const img = new window.Image();[m
+[32m+[m[32m    img.onload = () => {[m
+[32m+[m[32m      ctx.fillStyle = "#ffffff";[m
+[32m+[m[32m      ctx.fillRect(0, 0, 1000, 1000);[m
+[32m+[m[32m      ctx.drawImage(img, 100, 100, 800, 800);[m
+[32m+[m[32m      const a = document.createElement("a");[m
+[32m+[m[32m      a.download = "OAK-2026-entry-pass.png";[m
+[32m+[m[32m      a.href = canvas.toDataURL("image/png");[m
+[32m+[m[32m      a.click();[m
+[32m+[m[32m    };[m
+[32m+[m[32m    img.src = "data:image/svg+xml;base64," + window.btoa(svgRef.current.innerHTML);[m
+[32m+[m[32m  };[m
+[32m+[m
+[32m+[m[32m  if (notFound) {[m
+[32m+[m[32m    return ([m
+[32m+[m[32m      <div className="h-screen w-screen bg-[#f4f5f7] flex items-center justify-center">[m
+[32m+[m[32m        <p className="text-[#627588] text-sm">Entry pass not found.</p>[m
+[32m+[m[32m      </div>[m
+[32m+[m[32m    );[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  if (!attendee) {[m
+[32m+[m[32m    return ([m
+[32m+[m[32m      <div className="h-screen w-screen bg-[#f4f5f7] flex items-center justify-center">[m
+[32m+[m[32m        <p className="text-[#627588] text-sm">Loading your entry pass…</p>[m
+[32m+[m[32m      </div>[m
+[32m+[m[32m    );[m
+[32m+[m[32m  }[m
+[32m+[m
+[32m+[m[32m  const firstName = attendee.first_name;[m
+[32m+[m[32m  const eventPassCode = attendee.qr_token;[m
+[32m+[m
+[32m+[m[32m  const REGISTRATION_DETAILS = [[m
+[32m+[m[32m    { label: "Name", value: `${attendee.first_name} ${attendee.last_name}` },[m
+[32m+[m[32m    { label: "Organisation", value: attendee.organization },[m
+[32m+[m[32m    { label: "Role", value: attendee.role || "-" },[m
+[32m+[m[32m    { label: "Email", value: attendee.email || "-" },[m
+[32m+[m[32m    { label: "Event Dates", value: "9–11 March 2026" },[m
+[32m+[m[32m    { label: "Location", value: "Harare, Zimbabwe" },[m
+[32m+[m[32m  ];[m
+[32m+[m
+[32m+[m[32m  const handleRegisterAnother = () => {[m
+[32m+[m[32m    if (confirm("Register another attendee for Partner Convening 2026?")) {[m
+[32m+[m[32m      window.location.href = "/";[m
+[32m+[m[32m    }[m
+[32m+[m[32m  };[m
+ [m
+   return ([m
+[31m-    <div className="max-w-sm mx-auto mt-12 px-4">[m
+[31m-      <PassCard[m
+[31m-        firstName={attendee.first_name}[m
+[31m-        lastName={attendee.last_name}[m
+[31m-        organization={attendee.organization}[m
+[31m-        role={attendee.role}[m
+[31m-        token={attendee.qr_token}[m
+[31m-      />[m
+[32m+[m[32m    <div className="bg-[#f4f5f7] h-screen w-screen flex m-0 p-0 selection:bg-[#162e55] selection:text-white overflow-hidden text-[#1e293b] font-sans">[m
+[32m+[m
+[32m+[m[32m      <aside className="w-[135px] h-full bg-white border-r border-[#eaecf0] flex flex-col justify-between flex-shrink-0 select-none">[m
+[32m+[m
+[32m+[m[32m        <div className="pt-4 pb-2 px-2.5">[m
+[32m+[m[32m          <div className="px-0.5">[m
+[32m+[m[32m            <img[m
+[32m+[m[32m              src={OAK_LOGO_BASE64}[m
+[32m+[m[32m              alt="Oak Foundation"[m
+[32m+[m[32m              className="w-[78px] h-auto object-contain block"[m
+[32m+[m[32m            />[m
+[32m+[m[32m            <div className="text-[7.5px] font-bold tracking-[0.11em] text-[#8292a2] uppercase mt-2 leading-tight">[m
+[32m+[m[32m              Partner Convening 2026[m
+[32m+[m[32m            </div>[m
+[32m+[m[32m          </div>[m
+[32m+[m[32m          <nav className="space-y-0.5 mt-3.5">[m
+[32m+[m[32m            <button[m
+[32m+[m[32m              onClick={() => setActiveTab("register")}[m
+[32m+[m[32m              className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[10px] transition-all ${[m
+[32m+[m[32m                activeTab === "register"[m
+[32m+[m[32m                  ? "bg-[#162e55] text-white font-medium shadow-sm"[m
+[32m+[m[32m                  : "text-[#627588] hover:text-[#162e55] hover:bg-slate-50 font-normal"[m
+[32m+[m[32m              }`}[m
+[32m+[m[32m            >[m
+[32m+[m[32m              <svg[m
+[32m+[m[32m                className={`w-3.5 h-3.5 flex-shrink-0 ${activeTab === "register" ? "text-white" : "text-[#8898a8]"}`}[m
+[32m+[m[32m                viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"[m
+[32m+[m[32m              >[m
+[32m+[m[32m                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />[m
+[32m+[m[32m                <circle cx="9" cy="7" r="4" />[m
+[32m+[m[32m                <line x1="19" y1="8" x2="19" y2="14" />[m
+[32m+[m[32m                <line x1="22" y1="11" x2="16" y2="11" />[m
+[32m+[m[32m              </svg>[m
+[32m+[m[32m              <span className="tracking-wide">Register</span>[m
+[32m+[m[32m            </button>[m
+[32m+[m[32m            <button[m
+[32m+[m[32m              onClick={() => setActiveTab("programme")}[m
+[32m+[m[32m              className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-[10px] transition-all ${[m
+[32m+[m[32m                activeTab === "programme"[m
+[32m+[m[32m                  ? "bg-[#162e55] text-white font-medium shadow-sm"[m
+[32m+[m[32m                  : "text-[#627588] hover:text-[#162e55] hover:bg-slate-50 font-normal"[m
+[32m+[m[32m              }`}[m
+[32m+[m[32m            >[m
+[32m+[m[32m              <svg[m
+[32m+[m[32m                className={`w-3.5 h-3.5 flex-shrink-0 ${activeTab === "programme" ? "text-white" : "text-[#8898a8]"}`}[m
+[32m+[m[32m                viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"[m
+[32m+[m[32m              >[m
+[32m+[m[32m                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />[m
+[32m+[m[32m                <line x1="16" y1="2" x2="16" y2="6" />[m
+[32m+[m[32m                <line x1="8" y1="2" x2="8" y2="6" />[m
+[32m+[m[32m                <line x1="3" y1="10" x2="21" y2="10" />[m
+[32m+[m[32m                <path d="M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01M16 17h.01" />[m
+[32m+[m[32m              </svg>[m
+[32m+[m[32m              <span className="tracking-wide">Programme</span>[m
+[32m+[m[32m            </button>[m
+[32m+[m[32m   
