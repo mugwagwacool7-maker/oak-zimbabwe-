@@ -3,7 +3,6 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { supabase } from '@/lib/supabase';
 
 type FormState = {
   first_name: string;
@@ -63,27 +62,32 @@ export default function RegisterFormPage() {
     if (!validate()) return;
 
     setSubmitting(true);
-    const { data, error } = await supabase
-      .from('attendees')
-      .insert({
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
         first_name: form.first_name.trim(),
         last_name: form.last_name.trim(),
         organization: form.organization.trim(),
-        sub_partner: form.sub_partner.trim() || null,
+        sub_partner: form.sub_partner.trim(),
         role: form.role,
         email: form.email.trim(),
-        phone: form.phone.trim() || null,
-        dietary: form.dietary.trim() || null,
-        accessibility: form.accessibility.trim() || null,
-        travel_needs: form.travel_needs.trim() || null,
-      })
-      .select('qr_token')
-      .single();
+        phone: form.phone.trim(),
+        dietary: form.dietary.trim(),
+        accessibility: form.accessibility.trim(),
+        travel_needs: form.travel_needs.trim(),
+      }),
+    });
+    const data = await response.json();
 
     setSubmitting(false);
 
-    if (error || !data) {
-      setServerError('Something went wrong submitting your registration. Please try again.');
+    if (!response.ok || !data?.qr_token) {
+      console.error('Registration submission failed:', {
+        status: response.status,
+        message: data?.message,
+      });
+      setServerError(data?.message || 'Something went wrong submitting your registration. Please try again.');
       return;
     }
 
