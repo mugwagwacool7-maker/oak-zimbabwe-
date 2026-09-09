@@ -4,3 +4,17 @@
   --color-navy: #0B1F3A;
   --font-chillax: 'Chillax', sans-serif;
 }
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #f4f5f7;
+}
