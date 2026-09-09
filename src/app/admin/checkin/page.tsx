@@ -20,7 +20,7 @@ export default function CheckInPage() {
 
       const { data: attendee, error: findErr } = await supabase
         .from("attendees")
-        .select("id, name, organization")
+        .select("id, first_name, last_name, organization")
         .eq("qr_token", token)
         .single();
 
@@ -30,6 +30,7 @@ export default function CheckInPage() {
         return;
       }
 
+      const name = `${attendee.first_name ?? ""} ${attendee.last_name ?? ""}`.trim();
       const { error: insertErr } = await supabase
         .from("check_ins")
         .insert({ attendee_id: attendee.id });
@@ -38,7 +39,7 @@ export default function CheckInPage() {
         if (insertErr.code === "23505") {
           setResult({
             status: "duplicate",
-            name: attendee.name,
+            name,
             message: "Already checked in today.",
           });
         } else {
@@ -47,7 +48,7 @@ export default function CheckInPage() {
       } else {
         setResult({
           status: "success",
-          name: attendee.name,
+          name,
           message: `Checked in — ${attendee.organization}`,
         });
       }

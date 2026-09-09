@@ -4,74 +4,19 @@
 
 ▲ Next.js 16.3.4 (Turbopack)
 - Local:         http://localhost:3000
-- Network:       http://192.168.1.53:3000
+- Network:       http://192.168.1.178:3000
 - Environments: .env.local
-✓ Ready in 1073ms
-⚠ Warning: Next.js ignored package-lock.json in C:\Users\Donnavan\Desktop\oak foundation school project because it is outside the current Git repository (C:\Users\Donnavan\Desktop\oak foundation school project\oak-zimbabwe-).
- To use this directory, set `turbopack.root` in your Next.js config.
+✓ Ready in 2.3s
+✓ Running next.config.ts took 195ms
 
-✓ Running next.config.ts took 63ms
-
- GET /register 200 in 1005ms (next.js: 461ms, application-code: 544ms)
- GET / 200 in 234ms (next.js: 101ms, application-code: 134ms)
- GET /register 200 in 35ms (next.js: 9ms, application-code: 26ms)
- GET / 200 in 109ms (next.js: 12ms, application-code: 98ms)
- GET /register 200 in 35ms (next.js: 8ms, application-code: 27ms)
-✓ Compiled in 770ms
- GET /register 404 in 1466ms (next.js: 1240ms, application-code: 226ms)
- GET /register 404 in 185ms (next.js: 57ms, application-code: 128ms)
- GET /register 404 in 576ms (next.js: 110ms, application-code: 466ms)
- GET /register 404 in 712ms (next.js: 58ms, application-code: 654ms)
- GET /register 404 in 546ms (next.js: 127ms, application-code: 419ms)
- GET /register 404 in 176ms (next.js: 28ms, application-code: 149ms)
- GET /register 404 in 951ms (next.js: 157ms, application-code: 794ms)
- GET /register 404 in 543ms (next.js: 160ms, application-code: 383ms)
-✓ Compiled in 700ms
- GET /register 200 in 964ms (next.js: 689ms, application-code: 275ms)
- GET /register 200 in 404ms (next.js: 12ms, application-code: 391ms)
- GET /register 200 in 678ms (next.js: 68ms, application-code: 609ms)
- GET /register 200 in 93ms
- GET /register 200 in 628ms (next.js: 90ms, application-code: 538ms)
- GET /register 200 in 461ms (next.js: 290ms, application-code: 171ms)
- GET /register 200 in 524ms (next.js: 17ms, application-code: 506ms)
- GET /register 200 in 170ms (next.js: 34ms, application-code: 136ms)
- GET /register 200 in 525ms (next.js: 67ms, application-code: 458ms)
- GET /register 200 in 427ms (next.js: 70ms, application-code: 356ms)
- GET /register 200 in 260ms (next.js: 130ms, application-code: 129ms)
- GET /register 200 in 83ms
- GET /register 200 in 540ms (next.js: 19ms, application-code: 521ms)
-✓ Compiled in 128ms
- GET /register 200 in 54ms (next.js: 8ms, application-code: 46ms)
- GET /register/form 200 in 1564ms (next.js: 1331ms, application-code: 233ms)
- GET / 200 in 295ms (next.js: 254ms, application-code: 41ms)
- GET /register 200 in 132ms (next.js: 96ms, application-code: 36ms)
- GET / 200 in 325ms (next.js: 11ms, application-code: 314ms)
- GET /register 200 in 35ms (next.js: 11ms, application-code: 24ms)
- GET /register/form 200 in 164ms (next.js: 85ms, application-code: 79ms)
- GET / 200 in 48ms (next.js: 8ms, application-code: 40ms)
- GET /register/form 200 in 125ms (next.js: 74ms, application-code: 51ms)
- GET /register 200 in 47ms (next.js: 9ms, application-code: 38ms)
- GET /register/form 200 in 75ms (next.js: 27ms, application-code: 48ms)
- GET /register 200 in 44ms (next.js: 9ms, application-code: 35ms)
-✓ Compiled in 903ms
- GET /register/form 200 in 64ms (next.js: 19ms, application-code: 46ms)
- GET /register 200 in 111ms (next.js: 40ms, application-code: 71ms)
- GET /register/form 200 in 59ms (next.js: 7ms, application-code: 52ms)
- GET /register/form 200 in 64ms (next.js: 10ms, application-code: 54ms)
-✓ Compiled in 746ms
- GET /register/form 200 in 98ms (next.js: 24ms, application-code: 73ms)
- GET /register 200 in 55ms (next.js: 10ms, application-code: 45ms)
- GET /register/form 200 in 59ms (next.js: 6ms, application-code: 54ms)
- GET /register/form 200 in 65ms (next.js: 9ms, application-code: 56ms)
-✓ Compiled in 1017ms
- GET /register/form 200 in 70ms (next.js: 20ms, application-code: 50ms)
- GET /register 200 in 111ms (next.js: 37ms, application-code: 74ms)
-✓ Compiled in 885ms
- GET /register/form 200 in 112ms (next.js: 19ms, application-code: 93ms)
- GET /register 200 in 64ms (next.js: 15ms, application-code: 49ms)
- GET /register/form 200 in 70ms (next.js: 6ms, application-code: 63ms)
- GET /register/form 200 in 42ms (next.js: 17ms, application-code: 24ms)
- GET /register/form 200 in 36ms (next.js: 10ms, application-code: 26ms)
- GET /privacy-policy 404 in 258ms (next.js: 139ms, application-code: 118ms)
- GET /register/form 200 in 42ms (next.js: 11ms, application-code: 30ms)
- GET /register/form 200 in 32ms (next.js: 8ms, application-code: 23ms)
+ GET / 200 in 3.4s (next.js: 1996ms, application-code: 1368ms)
+Registration insert failed: {
+  message: "Could not find the 'accessibility' column of 'attendees' in the schema cache",
+  code: 'PGRST204',
+  details: null,
+  hint: null
+}
+ POST /api/register 500 in 2.7s (next.js: 850ms, application-code: 1895ms)
+ GET / 200 in 617ms (next.js: 384ms, application-code: 233ms)
+ GET / 200 in 283ms (next.js: 26ms, application-code: 258ms)
+[browser] Image with src "/oak-logo.webp" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
