@@ -1,93 +1,70 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "next/navigation";
-import { supabase } from "@/lib/supabase";
-import { QRCodeSVG } from "qrcode.react";
+import React, { useRef, useState } from "react";
+
+const QR_MATRIX = [
+  "111111101001001111111",
+  "100000100101001000001",
+  "101110101010101011101",
+  "101110100010001011101",
+  "101110101101101011101",
+  "100000100100101000001",
+  "111111101010101111111",
+  "000000001001000000000",
+  "101101110110111010110",
+  "010010001010010101001",
+  "111011101101101110110",
+  "001001000100001001010",
+  "100110111011110110001",
+  "000000001001010010010",
+  "111111100110101001101",
+  "100000101000010100010",
+  "101110100111101011001",
+  "101110101000110101010",
+  "101110100101001010101",
+  "100000101011010001001",
+  "111111100100111010010",
+];
 
 const OAK_LOGO_BASE64 =
   "data:image/png;base64,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";
 
+const REGISTRATION_DETAILS = [
+  { label: "Name", value: "tinashe smith" },
+  { label: "Organisation", value: "uncommon.org" },
+  { label: "Role", value: "Partner" },
+  { label: "Email", value: "tinasheuncommon.org" },
+  { label: "Event Dates", value: "9–11 March 2026" },
+  { label: "Location", value: "Harare, Zimbabwe" },
+];
+
 export default function RegistrationCompletePage() {
-  const params = useParams<{ token: string }>();
-  const token = params.token;
-
   const [activeTab, setActiveTab] = useState<"register" | "programme" | "partners">("register");
-  const [attendee, setAttendee] = useState<{
-    first_name: string;
-    last_name: string;
-    organization: string;
-    role: string | null;
-    email: string | null;
-    qr_token: string;
-  } | null>(null);
-  const [notFound, setNotFound] = useState(false);
-
-  useEffect(() => {
-    if (!token) return;
-    supabase
-      .from("attendees")
-      .select("first_name, last_name, organization, role, email, qr_token")
-      .eq("qr_token", token)
-      .single()
-      .then(({ data, error }) => {
-        if (error || !data) setNotFound(true);
-        else setAttendee(data);
-      });
-  }, [token]);
-
-  const svgRef = useRef<HTMLDivElement | null>(null);
+  const svgRef = useRef<SVGSVGElement | null>(null);
 
   const downloadQRCode = () => {
     if (!svgRef.current) return;
+    const svgData = new XMLSerializer().serializeToString(svgRef.current);
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    const img = new window.Image();
     canvas.width = 1000;
     canvas.height = 1000;
-    const img = new window.Image();
     img.onload = () => {
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, 1000, 1000);
       ctx.drawImage(img, 100, 100, 800, 800);
       const a = document.createElement("a");
-      a.download = "OAK-2026-entry-pass.png";
+      a.download = "OAK-2026-7842-XKPH.png";
       a.href = canvas.toDataURL("image/png");
       a.click();
     };
-    img.src = "data:image/svg+xml;base64," + window.btoa(svgRef.current.innerHTML);
+    img.src = "data:image/svg+xml;base64," + window.btoa(svgData);
   };
-
-  if (notFound) {
-    return (
-      <div className="h-screen w-screen bg-[#f4f5f7] flex items-center justify-center">
-        <p className="text-[#627588] text-sm">Entry pass not found.</p>
-      </div>
-    );
-  }
-
-  if (!attendee) {
-    return (
-      <div className="h-screen w-screen bg-[#f4f5f7] flex items-center justify-center">
-        <p className="text-[#627588] text-sm">Loading your entry pass…</p>
-      </div>
-    );
-  }
-
-  const firstName = attendee.first_name;
-  const eventPassCode = attendee.qr_token;
-
-  const REGISTRATION_DETAILS = [
-    { label: "Name", value: `${attendee.first_name} ${attendee.last_name}` },
-    { label: "Organisation", value: attendee.organization },
-    { label: "Role", value: attendee.role || "-" },
-    { label: "Email", value: attendee.email || "-" },
-    { label: "Event Dates", value: "9–11 March 2026" },
-    { label: "Location", value: "Harare, Zimbabwe" },
-  ];
 
   const handleRegisterAnother = () => {
     if (confirm("Register another attendee for Partner Convening 2026?")) {
-      window.location.href = "/";
+      alert("Ready to register next attendee.");
     }
   };
 
@@ -205,9 +182,9 @@ export default function RegistrationCompletePage() {
                 <h1 className="text-[17px] font-bold text-white leading-tight tracking-tight">
                   You&apos;re Registered,
                   <br />
-                  {firstName}!
+                  tinashe!
                 </h1>
-                <div className="text-[10px] text-[#8da2bd] font-normal mt-0.5">{attendee.organization}</div>
+                <div className="text-[10px] text-[#8da2bd] font-normal mt-0.5">uncommon.org</div>
               </div>
             </div>
           </section>
@@ -216,13 +193,33 @@ export default function RegistrationCompletePage() {
             <h2 className="text-[7.5px] font-bold tracking-[0.14em] text-[#7d90a4] uppercase mb-2">YOUR ENTRY PASS</h2>
             <div className="w-32 h-32 mx-auto bg-[#eef3f7] rounded-2xl p-2 flex items-center justify-center">
               <div className="bg-white w-full h-full rounded-xl p-1.5 flex items-center justify-center shadow-[0_1px_4px_rgba(0,0,0,0.02)]">
-                <div ref={svgRef} className="w-full h-full select-none">
-                  <QRCodeSVG value={eventPassCode} size={120} fgColor="#162e55" />
-                </div>
+                <svg
+                  ref={svgRef}
+                  viewBox="0 0 21 21"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-full h-full select-none"
+                >
+                  {QR_MATRIX.map((row, r) =>
+                    row.split("").map((cell, c) =>
+                      cell === "1" ? (
+                        <rect
+                          key={`${r}-${c}`}
+                          x={+(c + 0.08).toFixed(2)}
+                          y={+(r + 0.08).toFixed(2)}
+                          width={0.84}
+                          height={0.84}
+                          rx={0.22}
+                          fill="#162e55"
+                        />
+                      ) : null
+                    )
+                  )}
+                </svg>
               </div>
             </div>
             <div className="mt-2">
-              <div className="font-mono text-[8.5px] font-semibold tracking-[0.16em] text-[#627588]">{eventPassCode}</div>
+              <div className="font-mono text-[8.5px] font-semibold tracking-[0.16em] text-[#627588]">OAK-2026-7842-XKPH</div>
               <div className="text-[7.5px] text-[#8e9fae] mt-0.5">Present at event entrance for check-in</div>
             </div>
           </section>

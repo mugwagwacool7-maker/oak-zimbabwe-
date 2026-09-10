@@ -15,6 +15,32 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
   background-color: #f4f5f7;
+}
+
+/* Scanner region overrides - hide html5-qrcode default UI */
+#qr-scanner-region video {
+  border-radius: 12px;
+}
+
+#qr-scanner-region img[alt="Info icon"] {
+  display: none;
+}
+
+#qr-scanner-region__scan_region {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+#qr-scanner-region__dashboard_section {
+  display: none !important;
+}
+
+#qr-scanner-region__dashboard_section_csr button,
+#qr-scanner-region__dashboard_section_swaplink {
+  display: none !important;
+}
+
+#qr-scanner-region__header_message {
+  display: none !important;
 }
