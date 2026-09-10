@@ -1,11 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 
 export default function HeadcountBadge() {
   const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
+    const supabase = getSupabase();
+
     async function fetchCount() {
       const today = new Date().toISOString().slice(0, 10);
       const { count } = await supabase
@@ -19,5 +21,5 @@ export default function HeadcountBadge() {
     return () => clearInterval(interval);
   }, []);
 
-  return <div className="text-2xl font-bold">{count ?? "…"} checked in today</div>;
+  return <div className="text-2xl font-bold">{count ?? "..."} checked in today</div>;
 }

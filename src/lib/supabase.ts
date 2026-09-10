@@ -1,11 +1,19 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 export const supabaseConfigured = Boolean(url && key && url.startsWith('http'));
 
-export const supabase =
-  supabaseConfigured
-    ? createClient(url!, key!)
-    : createClient('https://placeholder.supabase.co', 'placeholder');
+let _client: SupabaseClient | null = null;
+
+export function getSupabase(): SupabaseClient {
+  if (_client) return _client;
+
+  if (supabaseConfigured) {
+    _client = createClient(url!, key!);
+  } else {
+    _client = createClient('https://placeholder.supabase.co', 'placeholder');
+  }
+  return _client;
+}

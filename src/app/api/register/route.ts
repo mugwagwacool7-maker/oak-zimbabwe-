@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabaseAdmin';
+import { getSupabaseAdmin } from '@/lib/supabaseAdmin';
 
 const fields = [
   'first_name',
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     }
 
     // Reject duplicate registrations for the same email
-    const { data: existing, error: findError } = await supabaseAdmin
+    const { data: existing, error: findError } = await getSupabaseAdmin()
       .from('attendees')
       .select('qr_token')
       .eq('email', attendee.email)
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const { data, error } = await supabaseAdmin
+    const { data, error } = await getSupabaseAdmin()
       .from('attendees')
       .insert(attendee)
       .select('qr_token')

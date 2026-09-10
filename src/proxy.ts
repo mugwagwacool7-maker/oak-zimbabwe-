@@ -1,30 +1,68 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { createServerClient } from "@supabase/ssr";
 
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  let supabaseResponse = NextResponse.next({
+    request,
+  });
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll();
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) =>
+            request.cookies.set(name, value)
+          );
+          supabaseResponse = NextResponse.next({
+            request,
+          });
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options)
+          );
+        },
+      },
+    }
+  );
+
   if (pathname.startsWith("/admin")) {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-    if (!supabaseUrl || !supabaseAnonKey) {
-      return NextResponse.redirect(new URL("/admin/login", request.url));
+    if (pathname === "/admin/login") {
+      return supabaseResponse;
     }
 
-    const accessToken = request.cookies.get("sb-access-token")?.value;
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-    if (!accessToken) {
-      if (pathname !== "/admin/login") {
-        return NextResponse.redirect(new URL("/admin/login", request.url));
-      }
-      return NextResponse.next();
+    if (!user) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/admin/login";
+      return NextResponse.redirect(url);
     }
 
-    return NextResponse.next();
+    // Verify user is an admin
+    const { data: adminRecord } = await supabase
+      .from("admin_users")
+      .select("id")
+      .eq("user_id", user.id)
+      .eq("role", "admin")
+      .single();
+
+    if (!adminRecord) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/admin/login";
+      return NextResponse.redirect(url);
+    }
   }
 
-  return NextResponse.next();
+  return supabaseResponse;
 }
 
 export const config = {

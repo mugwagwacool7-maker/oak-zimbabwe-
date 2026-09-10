@@ -78,7 +78,12 @@ export default function RegisterFormPage() {
         travel_needs: form.travel_needs.trim(),
       }),
     });
-    const data = await response.json();
+
+    let data: Record<string, unknown> | null = null;
+    const text = await response.text();
+    if (text) {
+      try { data = JSON.parse(text); } catch { /* non-JSON response */ }
+    }
 
     setSubmitting(false);
 
@@ -87,7 +92,7 @@ export default function RegisterFormPage() {
         status: response.status,
         message: data?.message,
       });
-      setServerError(data?.message || 'Something went wrong submitting your registration. Please try again.');
+      setServerError((data?.message as string) || 'Something went wrong submitting your registration. Please try again.');
       return;
     }
 
@@ -125,14 +130,14 @@ export default function RegisterFormPage() {
                 Register
               </Link>
             </div>
+          </div>
 
-            <div className="mt-6 rounded-xl border border-neutral-200 bg-white p-4">
-              <div className="flex items-start gap-2">
-                <GlobeIcon className="mt-0.5 h-4 w-4 shrink-0 text-neutral-500" />
-                <div>
-                  <p className="text-sm font-medium text-neutral-900">Harare, Zimbabwe</p>
-                  <p className="mt-0.5 text-xs text-blue-600">9-11 March 2026</p>
-                </div>
+          <div className="mt-auto pt-10">
+            <div className="flex items-start gap-2.5">
+              <GlobeIcon className="mt-0.5 h-4 w-4 shrink-0 text-neutral-500" />
+              <div>
+                <p className="text-sm font-medium text-neutral-900">Harare, Zimbabwe</p>
+                <p className="mt-0.5 text-xs text-blue-600">9-11 March 2026</p>
               </div>
             </div>
           </div>
@@ -236,7 +241,7 @@ export default function RegisterFormPage() {
 
           <button type="submit" disabled={submitting}
             className="w-full bg-navy text-white rounded-lg py-3.5 text-base font-semibold disabled:opacity-50">
-            {submitting ? 'Registering...' : 'Register'}
+            {submitting ? 'Registering...' : 'Register & Generate QR Code'}
           </button>
 
           <p className="text-xs text-navy text-center">
