@@ -1,28 +1,14 @@
-import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next'
+import { Plus_Jakarta_Sans } from 'next/font/google'
+import './globals.css'
 
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-plus-jakarta",
-});
+const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-plus-jakarta' })
 
 export const metadata: Metadata = {
-  title: "Registration Complete - Oak Foundation Partner Convening 2026",
-  description: "Oak Foundation Partner Convening 2026 Registration Confirmation and Entry Pass",
-};
+  title: 'OAK Foundation · Partner Convening 2026',
+  description: 'Register for the OAK Foundation Partner Convening in Harare, Zimbabwe.',
+}
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en" className="h-full">
-      <body className={`${plusJakarta.className} h-full antialiased`}>
-        {children}
-      </body>
-    </html>
-  );
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <html lang="en"><body className={`${plusJakarta.className} ${plusJakarta.variable}`}>{children}</body></html>
 }
